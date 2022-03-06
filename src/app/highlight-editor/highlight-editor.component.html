@@ -1,1 +1,31 @@
-<p>highlight-editor works!</p>
+<div
+  class="highlight-editor"
+  #highlightEditor
+  [style.width]="properties.width"
+  [style.minWidth]="properties.minWidth"
+>
+  <div class="highlight-editor-wrapper" #editorWrapper>
+    <div
+      #editor
+      class="highlight-editor-textarea"
+      [id]="id"
+      [attr.contenteditable]="properties.editable"
+      [attr.tabindex]="disabled ? -1 : tabIndex"
+      [attr.spellcheck]="properties.spellcheck"
+      [style.height]="properties.height"
+      [style.minHeight]="properties.minHeight"
+      [style.maxHeight]="properties.maxHeight"
+      [style.outline]="properties.outline === false ? 'none' : undefined"
+      (input)="onContentChange()"
+      (focus)="onTextAreaFocus($event)"
+      (blur)="onTextAreaBlur($event)"
+      (click)="onClick($event)"
+      (keyup.Space)="startProcessing()"
+      (paste)="onPaste($event)"
+      [ngStyle]="{ opacity: disabled ? 0.5 : 1 }"
+    ></div>
+    <span #placeholder class="highlight-editor-placeholder">{{
+      placeholder || properties["placeholder"] | json
+    }}</span>
+  </div>
+</div>
